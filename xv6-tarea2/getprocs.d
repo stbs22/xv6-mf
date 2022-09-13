@@ -1,1 +1,1 @@
-getprocs.o: getprocs.c types.h stat.h user.h
+getprocs.o: getprocs.c /usr/include/stdc-predef.h types.h stat.h user.h

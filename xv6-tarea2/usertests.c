@@ -1462,7 +1462,7 @@ sbrktest(void)
   }
   lastaddr = (char*) (BIG-1);
 
-  //Cambio realizado para compilación
+  //Cambio realizado para compilación con i386-elf-gcc
   #pragma GCC diagnostic ignored "-Wstringop-overflow"
   *lastaddr = 99;
   #pragma GCC diagnostic pop

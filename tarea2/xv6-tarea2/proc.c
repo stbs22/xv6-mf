@@ -7,6 +7,7 @@
 #include "proc.h"
 #include "spinlock.h"
 
+
 struct {
   struct spinlock lock;
   struct proc proc[NPROC];
@@ -311,6 +312,20 @@ wait(void)
   }
 }
 
+int lottery_Total(void){
+  struct proc *p;
+  int ticket_aggregate=0;
+
+//loop over process table and increment total tickets if a runnable process is found 
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+  {
+    if(p->state==RUNNABLE){
+      ticket_aggregate+=p->tickets_amount;
+    }
+  }
+  return ticket_aggregate;          // returning total number of tickets for runnable processes
+}
+
 //PAGEBREAK: 42
 // Per-CPU process scheduler.
 // Each CPU calls scheduler() after setting itself up.
@@ -323,32 +338,57 @@ void
 scheduler(void)
 {
   struct proc *p;
-  struct cpu *c = mycpu();
-  c->proc = 0;
-  
+  int foundproc = 1;
+  int count = 0;
+  long golden_ticket = 0;
+  int total_no_tickets = 0;
+
   for(;;){
     // Enable interrupts on this processor.
     sti();
 
+    if (!foundproc) hlt();
+    foundproc = 0;
+
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
+
+    //resetting the variables to make scheduler start from the beginning of the process queue
+    golden_ticket = 0;
+    count = 0;
+    total_no_tickets = 0;
+    
+    //calculate Total number of tickets for runnable processes  
+    
+    total_no_tickets = lottery_Total();
+
+    //pick a random ticket from total available tickets
+    golden_ticket = random_at_most(total_no_tickets);
+ 
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
 
+      //find the process which holds the lottery winning ticket 
+      if ((count + p->tickets_amount) < golden_ticket){
+        count += p->tickets_amount;
+        continue;
+      }
+
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
-      c->proc = p;
+      foundproc = 1;
+      proc = p;
       switchuvm(p);
       p->state = RUNNING;
-
-      swtch(&(c->scheduler), p->context);
+      swtch(&cpu->scheduler, proc->context);
       switchkvm();
 
       // Process is done running for now.
       // It should have changed its p->state before coming back.
-      c->proc = 0;
+      proc = 0;
+      break;
     }
     release(&ptable.lock);
 

@@ -103,11 +103,11 @@ extern int sys_unlink(void);
 extern int sys_wait(void);
 extern int sys_write(void);
 extern int sys_uptime(void);
-extern int sys_memcheck(void);
+extern int sys_ptemap(void);
 
 
 static int (*syscalls[])(void) = {
-[SYS_memcheck]	sys_memcheck,
+[SYS_memcheck]	sys_ptemap,
 [SYS_fork]    sys_fork,
 [SYS_exit]    sys_exit,
 [SYS_wait]    sys_wait,

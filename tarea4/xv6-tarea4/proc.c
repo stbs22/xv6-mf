@@ -534,8 +534,7 @@ procdump(void)
   }
 }
 
-int memcheck(int arg){
-	num = arg;
-	return num*10;
+int ptemap(void){
+	return 0;
 }
 

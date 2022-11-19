@@ -105,9 +105,7 @@ extern int sys_write(void);
 extern int sys_uptime(void);
 extern int sys_ptemap(void);
 
-
 static int (*syscalls[])(void) = {
-[SYS_memcheck]	sys_ptemap,
 [SYS_fork]    sys_fork,
 [SYS_exit]    sys_exit,
 [SYS_wait]    sys_wait,
@@ -129,6 +127,7 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
+[SYS_ptemap]  sys_ptemap,
 };
 
 void

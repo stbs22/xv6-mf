@@ -15,7 +15,6 @@ struct {
 static struct proc *initproc;
 
 int nextpid = 1;
-static int num;
 extern void forkret(void);
 extern void trapret(void);
 
@@ -535,6 +534,5 @@ procdump(void)
 }
 
 int ptemap(void){
-	return 0;
+  return 0;
 }
-

@@ -7,16 +7,6 @@
 #include "mmu.h"
 #include "proc.h"
 
-int 
-sys_memcheck(void) 
-{
-  /*	
-  static void* mem;
-  memcheck(&mem); 
-  */
-  return 0;
-}
-
 int
 sys_fork(void)
 {
@@ -99,3 +89,5 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+int sys_ptemap(void) { return ptemap(); }

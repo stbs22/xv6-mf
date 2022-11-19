@@ -10,6 +10,9 @@ struct sleeplock;
 struct stat;
 struct superblock;
 
+// ptemap.c
+int             ptemap(void);  
+
 // bio.c
 void            binit(void);
 struct buf*     bread(uint, uint);
@@ -132,9 +135,6 @@ void            initlock(struct spinlock*, char*);
 void            release(struct spinlock*);
 void            pushcli(void);
 void            popcli(void);
-
-//memcheck.c
-int		          ptemap(void);
 
 // sleeplock.c
 void            acquiresleep(struct sleeplock*);

@@ -23,7 +23,7 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
-int ptemap(int);
+int ptemap(void);
 
 // ulib.c
 int stat(const char*, struct stat*);

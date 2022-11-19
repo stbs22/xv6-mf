@@ -3,7 +3,7 @@ Tarea 4 hecha por: Esteban Eduardo Hernandez Salas
 Añadido archivo ptemap.c
 
 En MakeFile:
-  linea 169:  [ _ptemap\ ]
+  linea 177:  [ _ptemap\ ]
   linea 255:  [ ptemap.c\ ]
 
 En syscall.h:

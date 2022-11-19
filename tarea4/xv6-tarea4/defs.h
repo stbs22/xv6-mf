@@ -134,7 +134,7 @@ void            pushcli(void);
 void            popcli(void);
 
 //memcheck.c
-extern void*		memcheck(void*);
+int		memcheck(int);
 
 // sleeplock.c
 void            acquiresleep(struct sleeplock*);

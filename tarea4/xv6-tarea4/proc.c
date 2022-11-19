@@ -15,9 +15,9 @@ struct {
 static struct proc *initproc;
 
 int nextpid = 1;
+static int num;
 extern void forkret(void);
 extern void trapret(void);
-extern void* memcheck(void* i);
 
 static void wakeup1(void *chan);
 
@@ -532,5 +532,10 @@ procdump(void)
     }
     cprintf("\n");
   }
+}
+
+int memcheck(int arg){
+	num = arg;
+	return num*10;
 }
 

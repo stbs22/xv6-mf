@@ -533,6 +533,8 @@ procdump(void)
   }
 }
 
-int ptemap(void){
+int ptemap(void va){
+  cprintf("\noffset PTX: %d\noffset PDX: %d\n",PTXSHIFT,PDXSHIFT);
+  cprintf("\nEsta wea es? %p",(uint)va);
   return 0;
 }

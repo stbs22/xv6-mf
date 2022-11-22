@@ -11,7 +11,7 @@ struct stat;
 struct superblock;
 
 // ptemap.c
-int             ptemap(void);  
+int             ptemap(uint);  
 
 // bio.c
 void            binit(void);

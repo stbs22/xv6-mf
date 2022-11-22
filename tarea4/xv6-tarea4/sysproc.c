@@ -90,4 +90,8 @@ sys_uptime(void)
   return xticks;
 }
 
-int sys_ptemap(void) { return ptemap(); }
+int sys_ptemap(uint *s) { 
+  int i_s = (uint) s;
+  argint(0, &i_s);
+  return ptemap(i_s);
+}

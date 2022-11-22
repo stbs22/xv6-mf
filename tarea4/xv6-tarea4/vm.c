@@ -359,6 +359,51 @@ uva2ka(pde_t *pgdir, char *uva)
   return (char*)P2V(PTE_ADDR(*pte));
 }
 
+int memoria(uint vm) {
+  struct proc *p = myproc();
+  char *fm;
+  pde_t *pgdir;
+  pde_t *pde;
+  pte_t *pte;
+  pte_t *pgtab;
+  pgdir = p->pgdir;
+  pde = &pgdir[PDX(vm)];
+
+  if ((*pde & PTE_P) && (*pde & PTE_U)) {
+    pgtab = (pte_t*) P2V(PTE_ADDR(*pde));
+    pte = &pgtab[PTX(vm)];
+    fm = (char*) PTE_ADDR(*pte);
+
+    cprintf("\nTu memoria Virtual en Formato Decimal es : %d\n", vm);
+    cprintf("Tu memoria Virtual en Formato Hexadecimal es : 0x%x\n", vm);
+    cprintf("Tu memoria Fisica en Formato Hexadecimal es : 0x%x\n", fm);
+  } else {
+    cprintf("\n La dirección no existe o no ha sido encontrada \n");
+    return -1;
+  }
+  return 0;
+}
+
+int ptemap(uint virt_addr){
+
+  struct proc *p = myproc();
+  char *fm;
+  
+  pde_t *pgdir, *pde, *pte, *pgtab;
+  pgdir = p->pgdir;
+  pde = &pgdir[PDX(virt_addr)];
+
+  if ((*pde & PTE_P) && (*pde & PTE_U)) {
+
+    pgtab = (pte_t*) P2V(PTE_ADDR(*pde));
+    pte = &pgtab[PTX(virt_addr)];
+    fm = (char*) PTE_ADDR(*pte);
+
+  } else return -1;
+
+  return (uint)fm;
+}
+
 // Copy len bytes from p to user address va in page table pgdir.
 // Most useful when pgdir is not the current page table.
 // uva2ka ensures this only works for PTE_U pages.

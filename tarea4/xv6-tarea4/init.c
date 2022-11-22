@@ -21,6 +21,7 @@ main(void)
 
   for(;;){
     printf(1, "init: starting sh\n");
+		printf(1, "\nTarea 4 Sistemas Operativos 2022/2 \nSeccion 1\nAutor: Esteban Hernandez\n\n");
     pid = fork();
     if(pid < 0){
       printf(1, "init: fork failed\n");
